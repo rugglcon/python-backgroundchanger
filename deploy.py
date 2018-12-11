@@ -9,7 +9,7 @@ if 'master' not in branch:
     print('Must be on branch "master". Exiting.')
     exit(1)
 
-if 'Changes not staged for commit' in status or 'Untracked files' in status or 'Changes to be committed' in status:
+if 'Changes not staged for commit' in status or 'Untracked files' in status or 'Changes to be committed' in status or 'Your branch is ahead of' in status:
     # get user input for if they want to commit all current changes
     # and continue with the deploy script
     # exit if no
