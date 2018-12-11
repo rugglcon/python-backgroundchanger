@@ -8,6 +8,9 @@ def make_dist():
 def twine_upload():
     subprocess.call(['twine', 'upload', 'dist/*'])
 
+def clean():
+    subprocess.call(['python3', 'setup.py', 'clean'])
+
 status = git.status()
 branch = git.branch()
 
@@ -32,6 +35,7 @@ if 'Changes not staged for commit' in status or 'Untracked files' in status or '
     git.commit('-m', commit_msg)
     git.push()
 
+clean()
 make_dist()
 
 upld = input('About to upload to PyPi, are you sure you want to do this? (y/n) ')
