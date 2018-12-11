@@ -1,3 +1,4 @@
+from shutil import rmtree
 import subprocess
 from sys import exit
 from sh import git
@@ -9,7 +10,7 @@ def twine_upload():
     subprocess.call(['twine', 'upload', 'dist/*'])
 
 def clean():
-    subprocess.call(['python3', 'setup.py', 'clean'])
+    rmtree('dist')
 
 status = git.status()
 branch = git.branch()
