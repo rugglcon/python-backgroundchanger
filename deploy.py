@@ -26,6 +26,21 @@ if 'Changes not staged for commit' in status or 'Untracked files' in status or '
     git.commit('-m', commit_msg)
     git.push()
 
+make_dist()
+
+upld = input('About to upload to PyPi, are you sure you want to do this? (y/n) ')
+if upld != 'y' and upld != 'n':
+    print('Expected "y" or "n", instead found {}. Exiting.'.format(upld))
+    exit(1)
+if upld == 'n':
+    print('Not uploading. Exiting.')
+    exit(1)
+
+print('Uploading...')
+upload()
+
+upload()
+
 def make_dist():
     subprocess.call(['python3', 'setup.py', 'sdist', 'bdist_wheel', 'bdist_egg'])
 
