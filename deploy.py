@@ -5,9 +5,6 @@ from sh import git
 def make_dist():
     subprocess.call(['python3', 'setup.py', 'sdist', 'bdist_wheel', 'bdist_egg'])
 
-def upload():
-    subprocess.call(['python3', 'setup.py', 'upload'])
-
 def twine_upload():
     subprocess.call(['twine', 'upload', 'dist/*'])
 
