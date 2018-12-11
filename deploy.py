@@ -43,6 +43,4 @@ if upld == 'n':
     exit(1)
 
 print('Uploading...')
-upload()
-
-upload()
+twine_upload()
