@@ -14,6 +14,15 @@ def clean():
     if path.exists('dist'):
         rmtree('dist')
 
+vers = input('Did you change the version? (y/n) ')
+if vers != 'y' and vers != 'n':
+    print('Expected "y" or "n", instead found {}. Exiting.'.format(vers))
+    exit(1)
+
+if vers == 'n':
+    exit(0)
+
+
 status = git.status()
 branch = git.branch()
 
