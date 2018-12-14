@@ -1,4 +1,4 @@
-from pathlib import Path
+from os import path
 import requests
 from . import config
 from . import utils
@@ -9,7 +9,7 @@ class Api():
     """
 
     def __init__(self, access_key: str, secret_key: str = None):
-        self.__api_route__ = 'https://api.unspash.com'
+        self.__api_route__ = 'https://api.unsplash.com'
         self.access_key = access_key
         self.secret_key = secret_key
         self.version_header = {'Accept-Version': 'v1'}
@@ -28,7 +28,7 @@ class Api():
         screen_size = utils.get_screen_size()
         # construct the new url params
         download_params = '&w={}&h={}'.format(screen_size[0], screen_size[1])
-        bg_name = Path.joinpath(config.CONFIG_DOWNLOAD_FOLDER, res['id'])
+        bg_name = path.join(config.CONFIG_DOWNLOAD_FOLDER, res['id'] + '.jpg')
         self.download_photo(str(res['urls']['raw']) + download_params, bg_name)
         return bg_name
 
