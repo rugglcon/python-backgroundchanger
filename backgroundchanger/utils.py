@@ -12,9 +12,11 @@ def get_keys():
     with open(config.CONFIG_FILE) as key_file:
         data = json.loads(key_file.read())
     if 'secret_key' not in data:
-        return (data['access_key'], None)
-    else:
-        return (data['access_key'], data['secret_key'])
+        return {
+            'access_key': data['access_key'],
+            'secret_key': None
+        }
+    return data
 
 def change_background(photo_name: str):
     """

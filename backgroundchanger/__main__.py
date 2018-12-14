@@ -12,7 +12,7 @@ def do_wal(photo):
 
 def main():
     keys = utils.get_keys()
-    api_object = api.Api(keys[0], keys[1])
+    api_object = api.Api(keys)
     photo = api_object.get_random()
     # utils.change_background(photo)
     do_wal(photo)

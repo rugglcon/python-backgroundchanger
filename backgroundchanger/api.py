@@ -8,10 +8,10 @@ class Api():
     class to work with the API
     """
 
-    def __init__(self, access_key: str, secret_key: str = None):
+    def __init__(self, keys):
         self.__api_route__ = 'https://api.unsplash.com'
-        self.access_key = access_key
-        self.secret_key = secret_key
+        self.access_key = keys['access_key']
+        self.secret_key = keys['secret_key']
         self.version_header = {'Accept-Version': 'v1'}
 
     def get_random(self):
