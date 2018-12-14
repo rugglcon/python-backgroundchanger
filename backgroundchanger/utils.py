@@ -2,6 +2,7 @@ import json
 import logging
 import platform
 import subprocess
+import shutil
 from tkinter import Tk
 from . import config
 
@@ -29,11 +30,18 @@ def change_background(photo_name: str):
 
 def get_screen_size():
     """
-    gets the screen size as a tuple
-    (height, width)
+    gets the screen size as a dict
+    {height, width}
     """
     root = Tk()
-    return (root.winfo_vrootheight(), root.winfo_vrootwidth())
+    return {
+        'height': root.winfo_vrootheight(),
+        'width': root.winfo_vrootwidth()
+    }
+
+def copy_file(src, dst):
+    logging.info('Copying pic {} to {}'.format(src, dst))
+    shutil.copy2(src, dst)
 
 def get_background_cmd(photo_name: str):
     system = platform.system()

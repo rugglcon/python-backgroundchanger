@@ -29,9 +29,10 @@ class Api():
         screen_size = utils.get_screen_size()
         logging.debug('got the screen size: {}'.format(screen_size))
         # construct the new url params
-        download_params = '&w={}&h={}'.format(screen_size[0], screen_size[1])
-        bg_name = path.join(config.CONFIG_DOWNLOAD_FOLDER, res['id'] + '.jpg')
+        download_params = '&h={}&w={}&fm={}&fit=crop'.format(screen_size['height'], screen_size['width'], config.IMG_FORMAT)
+        bg_name = path.join(config.CONFIG_DOWNLOAD_FOLDER, res['id'] + '.' + config.IMG_FORMAT)
         self.download_photo(str(res['urls']['raw']) + download_params, bg_name)
+        utils.copy_file(bg_name, path.join(config.BACKGROUNDS_LOCAL, res['id'] + '.' + config.IMG_FORMAT))
         logging.debug('downloaded photo to {}'.format(bg_name))
         return bg_name
 
