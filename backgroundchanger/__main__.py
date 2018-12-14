@@ -17,4 +17,5 @@ def main():
     # utils.change_background(photo)
     do_wal(photo)
 
-main()
+if __name__ == '__main__':
+    main()

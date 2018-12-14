@@ -20,6 +20,7 @@ setuptools.setup(
         url=backgroundchanger.config.URL,
         python_requires='>=3.5',
         zip_safe=False,
+        entry_points={'console_scripts': ['backgroundchanger=backgroundchanger.__main__:main']},
         packages=setuptools.find_packages(),
         classifiers=[
             'Programming Language :: Python :: 3',
