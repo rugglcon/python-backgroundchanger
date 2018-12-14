@@ -10,3 +10,4 @@ This is pretty light on dependencies, but you will need to make sure you have a 
 
 * `tkinter` - a python GUI toolkit, but is only used to get the screen resolution. This is usually installed via a system package.
 * `requests` - python module for HTTP requests. Install with `pip3 install requests`
+* `pywal` - generates color schemes and used for changing the wallpaper. Install with `pip3 install pywal`

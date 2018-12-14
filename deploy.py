@@ -21,7 +21,7 @@ if 'master' not in branch:
     print('Must be on branch "master". Exiting.')
     exit(1)
 
-if 'Changes not staged for commit' in status or 'Untracked files' in status or 'Changes to be committed' in status or 'Your branch is ahead of' in status:
+if 'Changes not staged for commit' in status or 'Untracked files' in status or 'Changes to be committed' in status:
     # get user input for if they want to commit all current changes
     # and continue with the deploy script
     # exit if no
@@ -35,9 +35,14 @@ if 'Changes not staged for commit' in status or 'Untracked files' in status or '
         exit(2)
     commit_msg = input('Committing, please provide a commit message: ')
     git.add('.')
-    git.commit('-m', commit_msg)
-    git.push()
+    git.commit('-am', commit_msg)
+    push_result = git.push()
+    print(push_result)
 
+if 'Your branch is ahead of' in status:
+    print('Found unpushed commits. Pushing...')
+    push_result = git.push()
+    print(push_result)
 clean()
 make_dist()
 
