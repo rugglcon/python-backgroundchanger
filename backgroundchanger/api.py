@@ -1,3 +1,4 @@
+import logging
 from os import path
 import requests
 from . import config
@@ -26,10 +27,12 @@ class Api():
 
         # we need the screen size for getting the correct image size
         screen_size = utils.get_screen_size()
+        logging.debug('got the screen size: {}'.format(screen_size))
         # construct the new url params
         download_params = '&w={}&h={}'.format(screen_size[0], screen_size[1])
         bg_name = path.join(config.CONFIG_DOWNLOAD_FOLDER, res['id'] + '.jpg')
         self.download_photo(str(res['urls']['raw']) + download_params, bg_name)
+        logging.debug('downloaded photo to {}'.format(bg_name))
         return bg_name
 
     def request(self, method: str, url: str, data=None, headers=None):

@@ -1,4 +1,5 @@
 import json
+import logging
 import platform
 import subprocess
 from tkinter import Tk
@@ -32,14 +33,16 @@ def get_screen_size():
     (height, width)
     """
     root = Tk()
-    return (root.winfo_height(), root.winfo_width())
+    return (root.winfo_vrootheight(), root.winfo_vrootwidth())
 
 def get_background_cmd(photo_name: str):
     system = platform.system()
     if system == 'Darwin':
         raise ValueError('macOS is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(photo_name))
     elif system == 'Linux':
+        logging.info('Linux OS found; finding distro')
         dist = platform.linux_distribution()
+        logging.info('Found {}'.format(dist))
         if 'elementary' in dist or 'Ubuntu' in dist:
             return [
                 'gsettings',

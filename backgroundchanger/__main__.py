@@ -1,3 +1,4 @@
+import logging
 import pywal
 from . import config
 from . import api
@@ -11,7 +12,9 @@ def do_wal(photo):
     pywal.wallpaper.change(img)
 
 def main():
+    logging.basicConfig(filename=config.LOGFILE, level=logging.DEBUG)
     keys = utils.get_keys()
+    logging.debug('Got the keys: {}'.format(keys))
     api_object = api.Api(keys)
     photo = api_object.get_random()
     # utils.change_background(photo)
