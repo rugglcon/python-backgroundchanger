@@ -6,6 +6,15 @@ import shutil
 from tkinter import Tk
 from . import config
 
+def reload_gala():
+    """
+    this only is necessary for systems using the Gala
+    WM, notably elementary OS
+    """
+    subprocess.Popen(['gala', '-r'],
+        stderr=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL)
+
 def get_keys():
     """
     returns a tuple of the two keys

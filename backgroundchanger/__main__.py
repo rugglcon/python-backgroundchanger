@@ -39,6 +39,7 @@ def do_wal(photo, do_colors=True):
         pywal.export.every(colors)
     pywal.wallpaper.change(img)
     utils.change_background(img)
+    utils.reload_gala()
 
 def main():
     parsed = setup()
