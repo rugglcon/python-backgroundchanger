@@ -35,7 +35,7 @@ def do_wal(photo, do_colors=True):
     img = pywal.image.get(photo)
     if do_colors:
         colors = pywal.colors.get(img)
-        pywal.sequences.send(colors)
+        pywal.sequences.send(colors, sequences=True)
         pywal.export.every(colors)
     pywal.wallpaper.change(img)
     utils.change_background(img)
