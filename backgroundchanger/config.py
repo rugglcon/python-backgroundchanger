@@ -3,7 +3,7 @@ from os import path
 
 AUTHOR = 'Connor Ruggles'
 EMAIL = 'conruggles@gmail.com'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 URL = 'https://github.com/rugglcon/python-backgroundchanger'
 CONFIG_FOLDER = path.join(Path.home(), '.config', 'python-backgroundchanger')
 CONFIG_FILE = path.join(CONFIG_FOLDER, 'unsplash_keys.json')
