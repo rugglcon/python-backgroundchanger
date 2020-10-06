@@ -16,6 +16,7 @@ setuptools.setup(
         author_email=backgroundchanger.config.EMAIL,
         description='background changer using unsplash API.',
         long_description=long_desc,
+        long_description_content_type="text/markdown",
         license='MIT',
         url=backgroundchanger.config.URL,
         python_requires='>=3.5',
