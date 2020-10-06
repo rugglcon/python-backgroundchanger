@@ -11,3 +11,26 @@ This is pretty light on dependencies, but you will need to make sure you have a 
 * `tkinter` - a python GUI toolkit, but is only used to get the screen resolution. This is usually installed via a system package.
 * `requests` - python module for HTTP requests. Install with `pip3 install requests`
 * `pywal` - generates color schemes and used for changing the wallpaper. Install with `pip3 install pywal`
+
+## How to contribute?
+
+Create a virtual environment and install the dependenciess
+```sh
+python -m venv ./venv
+
+source ./venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+Build the project and install locally
+```sh
+python setup.py bdist_wheel
+
+pip install -e
+```
+
+Run the project
+```sh
+backgroundchanger
+```
