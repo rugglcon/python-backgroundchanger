@@ -3,30 +3,38 @@ import logging
 from os import path, mkdir
 from sys import exit
 import pywal
+from backgroundchanger.files import create_folders, file_not_exists
 from . import config
 from . import api
 from . import utils
 
-def setup():
-    """
-    sets up logging, initial info, and arg parsing
-    returns parsed args
-    """
-    logging.basicConfig(filename=config.LOGFILE, level=logging.DEBUG)
-    if not path.exists(config.CONFIG_FOLDER):
-        mkdir(config.CONFIG_FOLDER)
-    if not path.exists(config.CONFIG_FILE):
-        logging.critical('Config file {} not found'.format(config.CONFIG_FILE))
-        raise FileNotFoundError('Config file {} not found. This is needed to get the access key for unsplash'.format(config.CONFIG_FILE))
-    if not path.exists(config.CONFIG_DOWNLOAD_FOLDER):
-        mkdir(config.CONFIG_DOWNLOAD_FOLDER)
 
+def start_log():
+    logging.basicConfig(filename=config.LOGFILE, level=logging.DEBUG)
+
+
+def create_config_folders():
+    setup_folders = [config.CONFIG_FOLDER, config.CONFIG_DOWNLOAD_FOLDER]
+    create_folders(setup_folders)
+
+
+def create_config_file():
+    if file_not_exists(config.CONFIG_FILE):
+        msg = f'File %s not found. This is needed to get the access key for unsplash' % config.CONFIG_FILE
+        raise FileNotFoundError(msg)
+
+
+def parse_arguments():
     args = argparse.ArgumentParser()
+
     args.add_argument('-n', action='store_false',
         help='Don\'t generate a colorscheme or set terminal colors')
+
     args.add_argument('-v', action='store_true',
         help='Print version')
+
     return args.parse_args()
+
 
 def do_wal(photo, do_colors=True):
     """
@@ -42,7 +50,15 @@ def do_wal(photo, do_colors=True):
     utils.reload_gala()
 
 def main():
-    parsed = setup()
+    try:
+        start_log()
+        create_config_folders()
+        create_config_file()
+    except Exception as error:
+        logging.critical(error.message)
+        raise error
+
+    parsed = parse_arguments()
 
     if parsed.v:
         print('backgroundchanger v{}'.format(config.VERSION))
