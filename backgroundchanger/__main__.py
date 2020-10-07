@@ -55,6 +55,7 @@ def main():
         create_config_folders()
         create_config_file()
     except Exception as error:
+        logging.critical(error)
         logging.critical(error.message)
         raise error
 
