@@ -9,7 +9,7 @@ def test_create_folders():
   folders = ['./tmp/images','./tmp/background']
   create_folders(folders)
   
-  assert ['background', 'images'] == listdir('./tmp/')
+  assert all(x in listdir('./tmp/') for x in ['background', 'images'])
 
 @pytest.mark.usefixtures("temp_folder")
 def test_should_raise_an_error_when_try_to_create_invalid_folder():
