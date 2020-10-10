@@ -2,8 +2,9 @@ import setuptools
 
 try:
     import backgroundchanger
-except ImportError:
-    print("background_changer requires python 3.5 or greater. Exiting.")
+except ImportError as ie:
+    print('An error occurred while trying to import backgroundchanger')
+    print(ie)
     quit(1)
 
 with open('README.md', 'r') as ld:
