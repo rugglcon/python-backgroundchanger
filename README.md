@@ -61,3 +61,46 @@ backgroundchanger
 ```sh
 pytest tests
 ```
+
+## Source for images in python3 
+Source is built for use in small, low-traffic applications. For production uses, we recommend the official Unsplash API which has more robust features and supports high-traffic use cases.Check out the Unsplash API.
+
+
+**Random from a specific user**
+To choose a random photo from a specific user, the format follows that of selecting from a collection.
+Parameters
+https://source.unsplash.com/user/{USERNAME}
+* Optionally, to specify a size, append it at the end of the base URL.
+Example
+https://source.unsplash.com/user/erondu/1600x900
+HTML Example
+<img src="https://source.unsplash.com/user/erondu/1600x900">
+
+
+**Random from a user’s likes**
+Similar to finding a photo taken by a user, you can fetch a random photo that has been liked by a specific user.
+Parameters
+https://source.unsplash.com/user/{USERNAME}/likes
+* Optionally, to specify a size, append it at the end of the base URL.
+Example
+https://source.unsplash.com/user/jackie/likes/1600x900
+HTML Example
+<img src="https://source.unsplash.com/user/jackie/likes/1600x900">
+
+**Random from a collection**
+You can also select a random photo from a given collection.
+Parameters
+https://source.unsplash.com/collection/{COLLECTION ID}
+* Optionally, to specify a size, append it at the end of the base URL.
+Example
+https://source.unsplash.com/collection/190727/1600x900
+HTML Example
+<img src="https://source.unsplash.com/collection/190727/1600x900">
+
+
+**Fixed daily/weekly photo**
+All of the above URL's will give you a new photo each time they are requested (provided there are enough photos to choose from given the filtering). However each can also be limited to only updating once per day or week. To do so, simply append /daily or /weekly to the URL.
+https://source.unsplash.com/daily
+Random from a user
+https://source.unsplash.com/user/erondu/daily
+Random from a search term
