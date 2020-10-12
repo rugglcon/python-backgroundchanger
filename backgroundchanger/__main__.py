@@ -4,6 +4,7 @@ from os import path, mkdir
 from sys import exit
 import pywal
 import json
+import distro
 from backgroundchanger.files import create_folders, file_not_exists
 from . import config
 from . import api
@@ -61,7 +62,8 @@ def do_wal(photo, do_colors=True):
         pywal.export.every(colors)
     pywal.wallpaper.change(img)
     utils.change_background(img)
-    utils.reload_gala()
+    if 'elementary' in distro.name():
+        utils.reload_gala()
 
 
 def main():
