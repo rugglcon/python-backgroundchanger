@@ -5,7 +5,7 @@ from . import config
 from . import utils
 
 
-class Api():
+class Api:
     """
     class to work with the API
     """
