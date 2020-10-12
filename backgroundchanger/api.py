@@ -38,7 +38,8 @@ class Api():
         logging.debug('downloaded photo to {}'.format(bg_name))
         return bg_name
 
-    def request(self, method: str, url: str, data=None, headers=None):
+    @staticmethod
+    def request(method: str, url: str, data=None, headers=None):
         """
         generic request method
 
