@@ -22,9 +22,9 @@ def create_config_folders():
 
 def create_config_file(key=None):
     if key:
-        data=key
-        with open(config.CONFIG_FILE,'w') as key_file:
-            json.dump(obj=data,fp=key_file,indent=4)
+        data = key
+        with open(config.CONFIG_FILE, 'w') as key_file:
+            json.dump(obj=data, fp=key_file, indent=4)
 
     if file_not_exists(config.CONFIG_FILE):
         msg = f'File %s not found. This is needed to get the access key for unsplash.\nPlease provide the access key.' % config.CONFIG_FILE
@@ -39,13 +39,13 @@ def parse_arguments():
 
     args.add_argument('-v', action='store_true',
                       help='Print version')
-    
-    key_group=args.add_argument_group('key_group')
+
+    key_group = args.add_argument_group('key_group')
 
     key_group.add_argument('-a', '--access',
                            help='Provide the Unsplash API access key.')
 
-    key_group.add_argument('-s','--secret',
+    key_group.add_argument('-s', '--secret',
                            help='Provide the Unsplash API secret key')
 
     return args.parse_args()
@@ -67,12 +67,12 @@ def do_wal(photo, do_colors=True):
 
 
 def main():
-    keys={}
+    keys = {}
     parsed = parse_arguments()
     if parsed.access:
-        keys['access_key']=parsed.access
+        keys['access_key'] = parsed.access
     if parsed.secret:
-        keys['secret_key']=parsed.secret
+        keys['secret_key'] = parsed.secret
 
     try:
         start_log()
