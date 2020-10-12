@@ -4,6 +4,7 @@ import requests
 from . import config
 from . import utils
 
+
 class Api():
     """
     class to work with the API
@@ -29,7 +30,8 @@ class Api():
         screen_size = utils.get_screen_size()
         logging.debug('got the screen size: {}'.format(screen_size))
         # construct the new url params
-        download_params = '&h={}&w={}&fm={}&fit=crop'.format(screen_size['height'], screen_size['width'], config.IMG_FORMAT)
+        download_params = '&h={}&w={}&fm={}&fit=crop'.format(screen_size['height'], screen_size['width'],
+                                                             config.IMG_FORMAT)
         bg_name = path.join(config.CONFIG_DOWNLOAD_FOLDER, res['id'] + '.' + config.IMG_FORMAT)
         self.download_photo(str(res['urls']['raw']) + download_params, bg_name)
         utils.copy_file(bg_name, path.join(config.BACKGROUNDS_LOCAL, res['id'] + '.' + config.IMG_FORMAT))
