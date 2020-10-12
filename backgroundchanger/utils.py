@@ -3,6 +3,7 @@ import logging
 import platform
 import subprocess
 import shutil
+import distro
 from tkinter import Tk
 from . import config
 
@@ -61,7 +62,7 @@ def get_background_cmd(photo_name: str):
         raise ValueError('macOS is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(photo_name))
     elif system == 'Linux':
         logging.info('Linux OS found; finding distro')
-        dist = platform.linux_distribution()
+        dist = distro.name()
         logging.info('Found {}'.format(dist))
         if 'elementary' in dist or 'Ubuntu' in dist:
             return [
