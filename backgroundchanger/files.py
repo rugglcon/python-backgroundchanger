@@ -11,7 +11,7 @@ def _create_folder(folder):
         try:
             mkdir(folder)
         except OSError:
-            msg = f'Not was possible to create folder %s' % folder
+            msg = 'Not was possible to create folder {}'.format(folder)
             raise FolderNotCreatedException(msg)
 
 
