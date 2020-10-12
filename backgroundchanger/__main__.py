@@ -1,6 +1,5 @@
 import argparse
 import logging
-from os import path, mkdir
 from sys import exit
 import pywal
 import json
