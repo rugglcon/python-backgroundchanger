@@ -3,6 +3,7 @@ import logging
 from os import path, mkdir
 from sys import exit
 import pywal
+import json
 from backgroundchanger.files import create_folders, file_not_exists
 from . import config
 from . import api
@@ -18,9 +19,14 @@ def create_config_folders():
     create_folders(setup_folders)
 
 
-def create_config_file():
+def create_config_file(key={}):
+    if key:
+        data=key
+        with open(config.CONFIG_FILE,'w') as key_file:
+            json.dump(obj=data,fp=key_file,indent=4)
+
     if file_not_exists(config.CONFIG_FILE):
-        msg = f'File %s not found. This is needed to get the access key for unsplash' % config.CONFIG_FILE
+        msg = f'File %s not found. This is needed to get the access key for unsplash.\nPlease provide the access key.' % config.CONFIG_FILE
         raise FileNotFoundError(msg)
 
 
@@ -28,10 +34,18 @@ def parse_arguments():
     args = argparse.ArgumentParser()
 
     args.add_argument('-n', action='store_false',
-        help='Don\'t generate a colorscheme or set terminal colors')
+                      help='Don\'t generate a colorscheme or set terminal colors')
 
     args.add_argument('-v', action='store_true',
-        help='Print version')
+                      help='Print version')
+    
+    key_group=args.add_argument_group('key_group')
+
+    key_group.add_argument('-a', '--access',
+                           help='Provide the Unsplash API access key.')
+
+    key_group.add_argument('-s','--secret',
+                           help='Provide the Unsplash API secret key')
 
     return args.parse_args()
 
@@ -49,16 +63,22 @@ def do_wal(photo, do_colors=True):
     utils.change_background(img)
     utils.reload_gala()
 
+
 def main():
+    keys={}
+    parsed = parse_arguments()
+    if parsed.access:
+        keys['access_key']=parsed.access
+    if parsed.secret:
+        keys['secret_key']=parsed.secret
+
     try:
         start_log()
         create_config_folders()
-        create_config_file()
+        create_config_file(key=keys)
     except Exception as error:
         logging.exception(error)
         raise error
-
-    parsed = parse_arguments()
 
     if parsed.v:
         print('backgroundchanger v{}'.format(config.VERSION))
@@ -72,6 +92,7 @@ def main():
     api_object = api.Api(keys)
     photo = api_object.get_random()
     do_wal(photo, set_colors)
+
 
 if __name__ == '__main__':
     main()
