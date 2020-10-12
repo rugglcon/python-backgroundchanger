@@ -27,7 +27,8 @@ def create_config_file(key=None):
             json.dump(obj=data, fp=key_file, indent=4)
 
     if file_not_exists(config.CONFIG_FILE):
-        msg = f'File %s not found. This is needed to get the access key for unsplash.\nPlease provide the access key.' % config.CONFIG_FILE
+        msg = 'File {} not found. This is needed to get the access key for unsplash.\n'.format(config.CONFIG_FILE)
+        msg += 'Please provide the access key.'
         raise FileNotFoundError(msg)
 
 
