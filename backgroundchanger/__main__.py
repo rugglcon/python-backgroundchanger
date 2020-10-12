@@ -20,7 +20,7 @@ def create_config_folders():
     create_folders(setup_folders)
 
 
-def create_config_file(key={}):
+def create_config_file(key=None):
     if key:
         data=key
         with open(config.CONFIG_FILE,'w') as key_file:
