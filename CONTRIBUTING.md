@@ -3,7 +3,7 @@
 ## Development Environment
 
 1. To start developing on python-backgroundchanger, clone this repository
-    * Go to https://github.com/rugglcon/python-backgroundchanger.git and click the "fork" button to create your own copy of the project.
+    * Go to https://github.com/rugglcon/python-backgroundchanger and click the "fork" button to create your own copy of the project.
     * In a direcotry of your choice, download the "forked" copy to your local computer:
         ```sh
         git clone https://github.com/<your-username>/python-backgroundchanger.git
@@ -12,7 +12,16 @@
         ```sh
         cd python-backgroundchanger
         ```
-   
+    * Add the upstream (original) python-backgroundchanger repository.
+        ```sh
+        git remote add upstream https://github.com/rugglcon/python-backgroundchanger.git
+        ```
+    * There will now be two remote repositories listed by `git remote -v`
+        * `upstream` which refers to the original `python-backgroundchanger` repository
+        * `origin` which is your copy of the project
+
+        Periodically, you will have to [sync your copy of the project with the original](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
+
 2. Next, create a virtual environment.
 
     Using `venv`:
@@ -60,10 +69,4 @@
 Run tests with the following command:
 ```sh
 pytest tests
-```
-
-## Deployment
-If you intend to deploy the project to PyPI, you will need to install the deployment requirements as follows:
-```sh
-pip install -r requirements-deploy.txt
 ```
