@@ -55,7 +55,7 @@ def get_screen_size():
     return {
             'height': root.winfo_vrootheight(),
             'width': root.winfo_vrootwidth()
-            }
+    }
 
 
 def copy_file(src, dst):
@@ -89,19 +89,19 @@ def get_background_cmd(photo_name: str):
                         'feh',
                         '--bg-scale',
                         photo_name
-                        ]
+                ]
             elif os.system('nitrogen --help') == 0: # Nitrogen is installed
                 logging.info("Found nitrogen, using")
                 return [
                         'nitrogen',
                         photo_name
-                        ]
+                ]
 
 
     elif system == 'Windows':
         raise ValueError(
                 'Windows is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
-                    phot o_name))
+                    photo_name))
     raise ValueError(
-            '{} is not ye t implemented to change the background. However, you can still change the background. photo name: {}'.format(
+            '{} is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
                 system, photo_name))
