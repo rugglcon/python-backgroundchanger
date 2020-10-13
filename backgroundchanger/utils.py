@@ -1,4 +1,5 @@
 import json
+from os import system
 import logging
 import platform
 import subprocess
@@ -17,8 +18,8 @@ def reload_gala():
     gets fixed
     """
     subprocess.Popen(['gala', '-r'],
-                     stderr=subprocess.DEVNULL,
-                     stdout=subprocess.DEVNULL)
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL)
 
 
 def get_keys():
@@ -30,9 +31,9 @@ def get_keys():
         data = json.loads(key_file.read())
     if 'secret_key' not in data:
         return {
-            'access_key': data['access_key'],
-            'secret_key': None
-        }
+                'access_key': data['access_key'],
+                'secret_key': None
+                }
     return data
 
 
@@ -52,9 +53,9 @@ def get_screen_size():
     """
     root = Tk()
     return {
-        'height': root.winfo_vrootheight(),
-        'width': root.winfo_vrootwidth()
-    }
+            'height': root.winfo_vrootheight(),
+            'width': root.winfo_vrootwidth()
+            }
 
 
 def copy_file(src, dst):
@@ -66,24 +67,41 @@ def get_background_cmd(photo_name: str):
     system = platform.system()
     if system == 'Darwin':
         raise ValueError(
-            'macOS is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
-                photo_name))
+                'macOS is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
+                    photo_name))
     elif system == 'Linux':
         logging.info('Linux OS found; finding distro')
         dist = distro.name()
         logging.info('Found {}'.format(dist))
         if 'elementary' in dist or 'Ubuntu' in dist:
             return [
-                'gsettings',
-                'set',
-                'org.gnome.desktop.background',
-                'picture-uri',
-                'file://' + photo_name
-            ]
+                    'gsettings',
+                    'set',
+                    'org.gnome.desktop.background',
+                    'picture-uri',
+                    'file://' + photo_name
+                    ]
+        else:
+            logging.info('No distro found, falling back to generic options')
+            if os.system('feh --help') == 0: # We have `feh` installed
+                logging.info('Found feh, using')
+                return [
+                        'feh',
+                        '--bg-scale',
+                        photo_name
+                        ]
+            elif os.system('nitrogen --help') == 0: # Nitrogen is installed
+                logging.info("Found nitrogen, using")
+                return [
+                        'nitrogen',
+                        photo_name
+                        ]
+
+
     elif system == 'Windows':
         raise ValueError(
-            'Windows is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
-                photo_name))
+                'Windows is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
+                    phot o_name))
     raise ValueError(
-        '{} is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
-            system, photo_name))
+            '{} is not ye t implemented to change the background. However, you can still change the background. photo name: {}'.format(
+                system, photo_name))
