@@ -1,10 +1,11 @@
 import json
 import logging
 import platform
-import subprocess
 import shutil
 import distro
+import subprocess
 from tkinter import Tk
+
 from . import config
 
 
@@ -16,9 +17,9 @@ def reload_gala():
     this is just a workaround until this issue (https://github.com/elementary/gala/issues/13)
     gets fixed
     """
-    subprocess.Popen(['gala', '-r'],
-                     stderr=subprocess.DEVNULL,
-                     stdout=subprocess.DEVNULL)
+    return subprocess.Popen(['gala', '-r'],
+                            stderr=subprocess.DEVNULL,
+                            stdout=subprocess.DEVNULL)
 
 
 def get_keys():
@@ -42,7 +43,8 @@ def change_background(photo_name: str):
     determined by operating system
     """
     cmd = get_background_cmd(photo_name)
-    subprocess.call(cmd)
+    return subprocess.call(cmd)
+
 
 
 def get_screen_size():
