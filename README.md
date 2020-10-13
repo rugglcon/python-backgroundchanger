@@ -27,6 +27,11 @@ pip install backgroundchanger
 ## Usage
 ```sh
 backgroundchanger
+
+# To view the help menu
+backgroundchanger -h
+# or
+backgroundchanger --help
 ```
 
 
