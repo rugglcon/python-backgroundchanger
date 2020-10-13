@@ -7,19 +7,18 @@ class FolderNotCreatedException(Exception):
 
 
 def _create_folder(folder):
-  if not path.exists(folder):
-      try:
-          mkdir(folder)
-      except OSError:
-        msg = f'Not was possible to create folder %s' % folder
-        raise FolderNotCreatedException(msg)
+    if not path.exists(folder):
+        try:
+            mkdir(folder)
+        except OSError:
+            msg = 'Not was possible to create folder {}'.format(folder)
+            raise FolderNotCreatedException(msg)
 
 
 def create_folders(folder_paths):
-  for folder_path in folder_paths:
-    _create_folder(folder_path)
+    for folder_path in folder_paths:
+        _create_folder(folder_path)
 
 
 def file_not_exists(file):
-  return not path.exists(file)
-  
+    return not path.exists(file)

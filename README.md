@@ -12,52 +12,29 @@ This is pretty light on dependencies, but you will need to make sure you have a 
 * `requests` - python module for HTTP requests.
 * `pywal` - generates color schemes and used for changing the wallpaper.
 
+## Installation and Usage
+> **NOTE:** For Mac, first test if you have `tkinter` directly installed with your Python version first:
+> ```sh
+> python3
+> >>> import tkinter
+> ```
+> If that doesn't cause an error, you're good. If it does, follow [this](https://stackoverflow.com/a/60469203/9565946) Stack Overflow Post to get that correctly set up. Then you can continue with the installation:
+
+```sh
+pip install backgroundchanger
+```
+
+## Usage
+```sh
+backgroundchanger
+
+# To view the help menu
+backgroundchanger -h
+# or
+backgroundchanger --help
+```
+
+
 ## How to contribute?
 
 For issue and PR guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-### Environment setup
-
-**NOTE:** For Mac, first test if you have `tkinter` directly installed with your Python version first:
-```sh
-python3
->>> import tkinter
-```
-If that doesn't cause an error, you're good. If it does, follow [this](https://stackoverflow.com/a/60469203/9565946) Stack Overflow
-to get that correctly set up. Then you can continue with the rest of the steps.
-
-1. Create a virtual environment and install the dependencies
-```sh
-### using venv
-python -m venv ./venv
-
-source ./venv/bin/activate
-###
-
-
-### using pyenv virtualenv
-pyenv virtualenv 3.8.2 backgroundchanger
-
-pyenv local backgroundchanger
-###
-
-# install dev requirements
-pip install -r requirements-dev.txt -r requirements.txt
-```
-
-2. Build the project and install locally
-```sh
-python setup.py bdist_wheel
-
-pip install -e
-```
-
-3. Run the project
-```sh
-backgroundchanger
-```
-
-### Running tests
-```sh
-pytest tests
-```
