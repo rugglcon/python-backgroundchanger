@@ -12,7 +12,7 @@ This is pretty light on dependencies, but you will need to make sure you have a 
 * `requests` - python module for HTTP requests.
 * `pywal` - generates color schemes and used for changing the wallpaper.
 
-This optionally requres `feh` or `nitrogen` if you are not using Ubuntu or Rlementary OS.
+This optionally requres `feh` or `nitrogen` if you are not using Ubuntu or Elementary OS.
 
 ## Installation and Usage
 > **NOTE:** For Mac, first test if you have `tkinter` directly installed with your Python version first:
