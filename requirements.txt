@@ -1,2 +1,3 @@
-requests
-pywal
+requests==2.*
+pywal==3.*
+distro==1.*
