@@ -80,6 +80,10 @@ def test_get_background_cmd():
 
 
 def test_change_background():
-    subprocess.call = MagicMock(return_value='Done')
+    subprocess.call = MagicMock(return_value = { "returncode" : 0 })
+    utils.get_background_cmd = MagicMock(return_value = ['dummy','cmd'])
     s = utils.change_background("./tests/test.png")
-    assert s == 'Done'
+    assert s['returncode'] == 0
+    subprocess.call = MagicMock(return_value = { "returncode" : 7777 })
+    s = utils.change_background("./tests/test.png")
+    assert s['returncode'] > 0
