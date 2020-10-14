@@ -3,6 +3,7 @@ import logging
 import platform
 from subprocess import Popen, call
 import shutil
+from os import system
 import distro
 from tkinter import Tk
 from . import config
