@@ -46,15 +46,13 @@ def test_get_keys():
         assert keys['access_key'] =='ak'
         assert keys['secret_key'] =='sk'
 
-def test_reload_gala(fake_process):
-    fake_process.register_subprocess(
-        ["gala", "-r"], stdout=[]
-    )
-    s = utils.reload_gala()
-    stdout, _ = s.communicate()
 
-    assert s.returncode == 0
-    assert stdout == None
+@patch('backgroundchanger.utils.subprocess.Popen')
+def test_reload_gala(mock_popen):
+    utils.reload_gala()
+    mock_popen.assert_called_once_with(['gala', '-r'],
+        stderr=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL)
 
 
 def test_copy_file():
@@ -79,11 +77,9 @@ def test_get_background_cmd():
     t.test_linux_cmd()
 
 
-def test_change_background():
-    subprocess.call = MagicMock(return_value = { "returncode" : 0 })
-    utils.get_background_cmd = MagicMock(return_value = ['dummy','cmd'])
-    s = utils.change_background("./tests/test.png")
-    assert s['returncode'] == 0
-    subprocess.call = MagicMock(return_value = { "returncode" : 7777 })
-    s = utils.change_background("./tests/test.png")
-    assert s['returncode'] > 0
+@patch('backgroundchanger.utils.subprocess.call')
+def test_change_background(mock_call):
+    utils.get_background_cmd = MagicMock()
+    utils.get_background_cmd.return_value = ['dummy','cmd']
+    utils.change_background("./tests/test.png")
+    mock_call.assert_called_once_with(['dummy', 'cmd'])
