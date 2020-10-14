@@ -1,11 +1,10 @@
 import json
 import logging
 import platform
+import subprocess
 import shutil
 import distro
-import subprocess
 from tkinter import Tk
-
 from . import config
 
 
@@ -18,8 +17,8 @@ def reload_gala():
     gets fixed
     """
     return subprocess.Popen(['gala', '-r'],
-                            stderr=subprocess.DEVNULL,
-                            stdout=subprocess.DEVNULL)
+                     stderr=subprocess.DEVNULL,
+                     stdout=subprocess.DEVNULL)
 
 
 def get_keys():
@@ -44,7 +43,6 @@ def change_background(photo_name: str):
     """
     cmd = get_background_cmd(photo_name)
     return subprocess.call(cmd)
-
 
 
 def get_screen_size():
