@@ -1,37 +1,44 @@
-import platform
 import shutil
 import subprocess
 import unittest
 from os import getcwd, makedirs, path, remove
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from mock import MagicMock, patch
 
-import pytest
-from backgroundchanger import config, utils
+from backgroundchanger import utils
 from open_file_mock import MockOpen
 
+@patch('backgroundchanger.utils.platform_system')
 class TestExceptions(unittest.TestCase):
-    def test_mac_exception(self):
-        platform.system = MagicMock(return_value='Darwin')
+    def test_mac_exception(self, mock_platform):
+        mock_platform.return_value = 'Darwin'
         self.assertRaises(
             ValueError, utils.get_background_cmd, "./tests/test.png")
 
-    def test_win_exception(self):
-        platform.system = MagicMock(return_value='Windows')
+
+    def test_win_exception(self, mock_platform):
+        mock_platform.return_value = 'Windows'
         self.assertRaises(
             ValueError, utils.get_background_cmd, "./tests/test.png")
 
-    def test_linux_cmd(self):
-        platform.system = MagicMock(return_value='Linux')
-        platform.linux_distribution = MagicMock(return_value='Ubuntu')
+    @patch('backgroundchanger.utils.distro_name')
+    def test_linux_cmd(self, mock_distro, mock_platform):
+        mock_distro.return_value = 'Ubuntu'
+        mock_platform.return_value = 'Linux'
         res = utils.get_background_cmd("./tests/test.png")
         assert res[0] == 'gsettings'
 
 
-def test_get_screen_size():
+@patch('backgroundchanger.utils.Tk')
+def test_get_screen_size(mock_tk):
+    mock_tk.return_value.winfo_vrootheight = MagicMock()
+    mock_tk.return_value.winfo_vrootheight.return_value = 10
+    mock_tk.return_value.winfo_vrootwidth = MagicMock()
+    mock_tk.return_value.winfo_vrootwidth.return_value = 10
     screen = utils.get_screen_size()
-    assert screen['height']
-    assert screen['width']
+    assert screen['height'] == 10
+    assert screen['width'] == 10
+
 
 def test_get_keys():
     with patch('builtins.open', new_callable=MockOpen) as open_mock:
@@ -47,7 +54,7 @@ def test_get_keys():
         assert keys['secret_key'] =='sk'
 
 
-@patch('backgroundchanger.utils.subprocess.Popen')
+@patch('backgroundchanger.utils.Popen')
 def test_reload_gala(mock_popen):
     utils.reload_gala()
     mock_popen.assert_called_once_with(['gala', '-r'],
@@ -70,14 +77,7 @@ def test_copy_file():
     shutil.rmtree(srcDir)
 
 
-def test_get_background_cmd():
-    t = TestExceptions()
-    t.test_mac_exception()
-    t.test_win_exception()
-    t.test_linux_cmd()
-
-
-@patch('backgroundchanger.utils.subprocess.call')
+@patch('backgroundchanger.utils.call')
 def test_change_background(mock_call):
     utils.get_background_cmd = MagicMock()
     utils.get_background_cmd.return_value = ['dummy','cmd']

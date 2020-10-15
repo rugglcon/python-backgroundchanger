@@ -1,13 +1,12 @@
 import json
 import logging
-import platform
-from subprocess import Popen, call
+from platform import system as platform_system
+from subprocess import Popen, call, DEVNULL
 import shutil
 from os import system as run
-import distro
+from distro import name as distro_name
 from tkinter import Tk
 from . import config
-
 
 def reload_gala():
     """
@@ -18,8 +17,8 @@ def reload_gala():
     gets fixed
     """
     Popen(['gala', '-r'],
-        stderr=subprocess.DEVNULL,
-        stdout=subprocess.DEVNULL)
+        stderr=DEVNULL,
+        stdout=DEVNULL)
 
 
 def get_keys():
@@ -64,14 +63,14 @@ def copy_file(src, dst):
 
 
 def get_background_cmd(photo_name: str):
-    system = platform.system()
+    system = platform_system()
     if system == 'Darwin':
         raise ValueError(
             'macOS is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
                 photo_name))
     elif system == 'Linux':
         logging.info('Linux OS found; finding distro')
-        dist = distro.name()
+        dist = distro_name()
         logging.info('Found {}'.format(dist))
         if 'elementary' in dist or 'Ubuntu' in dist:
             return [
