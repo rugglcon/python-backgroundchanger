@@ -3,6 +3,7 @@ import logging
 import platform
 from subprocess import Popen, call
 import shutil
+from os import system as run
 import distro
 from tkinter import Tk
 from . import config
@@ -80,6 +81,14 @@ def get_background_cmd(photo_name: str):
                 'picture-uri',
                 'file://' + photo_name
             ]
+        elif not run('feh --help > /dev/null'): # Actually true, 0 (success) is cast to false.
+            logging.info('Found Feh')
+            return [
+                'feh',
+                '--bg-scale',
+                photo_name
+            ]
+
     elif system == 'Windows':
         raise ValueError(
             'Windows is not yet implemented to change the background. However, you can still change the background. photo name: {}'.format(
