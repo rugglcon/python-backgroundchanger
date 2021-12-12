@@ -72,7 +72,7 @@ def get_background_cmd(photo_name: str):
         logging.info('Linux OS found; finding distro')
         dist = distro_name()
         logging.info('Found {}'.format(dist))
-        if 'elementary' in dist or 'Ubuntu' in dist:
+        if 'elementary' in dist or 'Ubuntu' in dist or 'Pop!_OS' in dist:
             return [
                 '/usr/bin/gsettings',
                 'set',
