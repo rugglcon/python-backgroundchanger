@@ -26,7 +26,7 @@ class TestExceptions(unittest.TestCase):
         mock_distro.return_value = 'Ubuntu'
         mock_platform.return_value = 'Linux'
         res = utils.get_background_cmd("./tests/test.png")
-        assert res[0] == 'gsettings'
+        assert res[0] in ('gsettings','/usr/bin/gsettings')
 
 
 @patch('backgroundchanger.utils.Tk')
