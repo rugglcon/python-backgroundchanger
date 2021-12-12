@@ -16,14 +16,22 @@ class Api:
         self.secret_key = keys['secret_key']
         self.version_header = {'Accept-Version': 'v1'}
 
-    def get_random(self):
+    def get_random(self, params=None):
         """
         gets a random photo
 
         returns the full path to the downloaded photo
         """
-        # gets the url for the main request
-        url = self.__api_route__ + '/photos/random?client_id={}'.format(self.access_key)
+        if params is None:
+            params = {}
+        selection_params = []
+        for key, ele in params.items():
+            if ele:
+                selection_params.append('{}={}'.format(key, ','.join(ele)))
+        url = self.__api_route__ + '/photos/random?client_id={}'.format(
+            self.access_key)  # gets the url for the main request
+        final_params = '&' + '&'.join(selection_params)
+        url = url + final_params
         res = self.request('GET', url, headers=self.version_header).json()
 
         # we need the screen size for getting the correct image size

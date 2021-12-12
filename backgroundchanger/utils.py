@@ -8,6 +8,7 @@ from distro import name as distro_name
 from tkinter import Tk
 from . import config
 
+
 def reload_gala():
     """
     this only is necessary for systems using the Gala
@@ -17,8 +18,8 @@ def reload_gala():
     gets fixed
     """
     Popen(['gala', '-r'],
-        stderr=DEVNULL,
-        stdout=DEVNULL)
+          stderr=DEVNULL,
+          stdout=DEVNULL)
 
 
 def get_keys():
@@ -72,15 +73,15 @@ def get_background_cmd(photo_name: str):
         logging.info('Linux OS found; finding distro')
         dist = distro_name()
         logging.info('Found {}'.format(dist))
-        if 'elementary' in dist or 'Ubuntu' in dist:
+        if 'elementary' in dist or 'Ubuntu' in dist or 'Pop!_OS' in dist:
             return [
-                'gsettings',
+                '/usr/bin/gsettings',
                 'set',
                 'org.gnome.desktop.background',
                 'picture-uri',
                 'file://' + photo_name
             ]
-        elif not run('feh --help > /dev/null'): # Actually true, 0 (success) is cast to false.
+        elif not run('feh --help > /dev/null'):  # Actually true, 0 (success) is cast to false.
             logging.info('Found Feh')
             return [
                 'feh',
