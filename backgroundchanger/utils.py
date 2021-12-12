@@ -74,7 +74,7 @@ def get_background_cmd(photo_name: str):
         logging.info('Found {}'.format(dist))
         if 'elementary' in dist or 'Ubuntu' in dist:
             return [
-                'gsettings',
+                '/usr/bin/gsettings',
                 'set',
                 'org.gnome.desktop.background',
                 'picture-uri',
